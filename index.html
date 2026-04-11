@@ -3,155 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI - Dynamic Page</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #050f1a;
-            color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
+        /* 1. لێڤینا ناڤێ Tech AI (ڕەجفین) */
+        .tech-ai-container {
+            display: inline-block;
+            animation: glitch-shake 0.3s infinite ease-in-out;
+            /* ئەڤە وێ پاشخانا تە یا شین دپارێزیت */
         }
 
-        /* 1. Welcome Text Animation */
+        @keyframes glitch-shake {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* 2. شێوازێ گۆهرینا زمانێ Welcome */
         #welcome-text {
-            font-size: 3rem;
+            font-size: 40px;
             font-weight: bold;
             color: #00f2ff;
-            text-shadow: 0 0 20px #00f2ff;
-            transition: transform 0.5s ease-in-out, opacity 0.5s;
-            margin-bottom: 50px;
+            text-shadow: 0 0 15px #00f2ff;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: block;
+            text-align: center;
         }
 
-        /* 2. Main Circle and Orbit */
-        .container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* Tilt the orbit a bit */
-            transform: rotateX(45deg); 
-            perspective: 1000px;
+        .flip-active {
+            transform: rotateX(360deg);
         }
 
-        .orbit {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 1px dashed rgba(0, 242, 255, 0.3);
-            border-radius: 50%;
-            animation: rotateOrbit 10s linear infinite;
-        }
-
-        /* Icons on the orbit */
-        .icon {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: #1a1a1a;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #333;
-            /* Reverse the tilt of the icons so they look upright */
-            transform: rotateX(-45deg);
-        }
-
-        .icon.tiktok { top: -25px; left: 50%; transform: translateX(-50%) rotateX(-45deg); }
-        .icon.insta { bottom: -25px; left: 50%; transform: translateX(-50%) rotateX(-45deg); }
-        .icon.telegram { left: -25px; top: 50%; transform: translateY(-50%) rotateX(-45deg); }
-
-        @keyframes rotateOrbit {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* 3. Tech AI Box with Shake Effect */
-        .tech-ai-box {
-            position: absolute;
-            padding: 15px 30px;
-            background: rgba(0, 242, 255, 0.1);
-            border: 2px solid #00f2ff;
-            border-radius: 15px;
-            box-shadow: 0 0 15px #00f2ff;
-            font-size: 1.5rem;
-            font-weight: bold;
-            /* Counter-tilt to make it flat to user */
-            transform: rotateX(-45deg);
-            animation: shake 0.2s infinite alternate;
-        }
-
-        @keyframes shake {
-            0% { transform: rotateX(-45deg) translate(2px, 1px); }
-            100% { transform: rotateX(-45deg) translate(-2px, -1px); }
-        }
-
-        /* 4. Background Stars Animation */
+        /* 3. ستێرێن ل دەور و بەر (لێڤین) */
         .star {
             position: absolute;
             background: white;
             border-radius: 50%;
-            opacity: 0.5;
-            animation: moveStars 5s infinite linear;
+            animation: blink 2s infinite alternate;
         }
 
-        @keyframes moveStars {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100vh); }
+        @keyframes blink {
+            from { opacity: 0.2; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1.2); }
         }
-
     </style>
 </head>
 <body>
 
     <div id="welcome-text">WELCOME</div>
 
-    <div class="container">
-        <div class="orbit">
-            <div class="icon tiktok">🎵</div>
-            <div class="icon insta">📸</div>
-            <div class="icon telegram">✈️</div>
+    <div class="tech-ai-container">
+        <div style="border: 2px solid #00f2ff; padding: 10px 20px; border-radius: 15px; color: white; box-shadow: 0 0 10px #00f2ff;">
+            TECH AI
         </div>
-        
-        <div class="tech-ai-box">TECH AI</div>
     </div>
 
     <script>
-        // Welcome Text Toggle (English / Kurdish)
-        const welcome = document.getElementById('welcome-text');
+        // گۆهرینا زمانێ خێرهاتن هەر یەک چرکە
+        const welcomeEl = document.getElementById('welcome-text');
         let isEnglish = true;
 
         setInterval(() => {
-            welcome.style.opacity = '0';
+            welcomeEl.classList.add('flip-active');
+            
             setTimeout(() => {
-                welcome.innerText = isEnglish ? "خێرهاتن" : "WELCOME";
-                welcome.style.opacity = '1';
                 isEnglish = !isEnglish;
-            }, 500);
-        }, 2000);
+                welcomeEl.innerText = isEnglish ? "WELCOME" : "خێرهاتن";
+                welcomeEl.classList.remove('flip-active');
+            }, 300); // نیڤا کاتی بۆ گۆهرینا پەیڤێ
+        }, 1500);
 
-        // Background Stars Logic
-        for (let i = 0; i < 50; i++) {
+        // دروستکرنا ستێران ب شێوەیەکێ ئۆتۆماتیکی
+        for (let i = 0; i < 30; i++) {
             let star = document.createElement('div');
             star.className = 'star';
-            let size = Math.random() * 3 + 'px';
-            star.style.width = size;
-            star.style.height = size;
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
             star.style.left = Math.random() * 100 + 'vw';
             star.style.top = Math.random() * 100 + 'vh';
-            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            star.style.animationDelay = Math.random() * 2 + 's';
             document.body.appendChild(star);
         }
     </script>
-
 </body>
 </html>
