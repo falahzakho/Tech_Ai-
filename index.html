@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI Social Links</title>
+    <title>Tech AI | Welcome</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -11,66 +11,112 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #050505; /* رەنگێ رەشێ تاری */
-            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at center, #0a192f 0%, #020202 100%);
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
+            color: white;
+        }
+
+        /* ئەستێرەیێن پشت بنەمایێ */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            box-shadow: 10vw 20vh 1px #fff, 50vw 40vh 1px #fff, 80vw 10vh 1px #fff, 20vw 80vh 1px #fff, 70vw 70vh 1px #fff;
+            border-radius: 50%;
+            animation: starsAnim 10s linear infinite;
+        }
+
+        @keyframes starsAnim {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100vh); }
+        }
+
+        /* Welcome Text */
+        .welcome-msg {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            background: linear-gradient(to right, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulseText 2s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
         }
 
         .container {
             position: relative;
-            width: 320px;
-            height: 320px;
+            width: 350px;
+            height: 350px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* ناڤێ TECH AI */
+        /* ناڤێ سەرەکی */
         .brand-name {
             color: #ffffff;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            text-shadow: 0 0 20px #00d4ff;
+            text-shadow: 0 0 25px #00d4ff;
             z-index: 10;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
         }
 
-        /* بازنێ زڤڕۆک */
+        /* خەکا زڤڕۆک */
         .orbit {
             position: absolute;
             width: 100%;
             height: 100%;
+            border: 1px dashed rgba(0, 212, 255, 0.2);
             border-radius: 50%;
-            animation: rotateOrbit 15s linear infinite;
+            animation: rotateOrbit 12s linear infinite;
         }
 
         .icon-link {
             position: absolute;
-            width: 55px;
-            height: 55px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-decoration: none;
             font-size: 1.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
         .icon-link:hover {
-            transform: scale(1.2);
+            transform: scale(1.3) rotate(360deg);
             background: #fff;
+            box-shadow: 0 0 30px #00d4ff;
         }
 
         /* جهێ ئایکۆنان */
-        .tiktok { top: 0; left: 50%; transform: translateX(-50%); color: #ff0050; }
-        .instagram { bottom: 0; left: 50%; transform: translateX(-50%); color: #E1306C; }
-        .telegram { top: 50%; left: 0; transform: translateY(-50%); color: #0088cc; }
+        .tiktok { top: -30px; left: 50%; transform: translateX(-50%); color: #ff0050; }
+        .instagram { bottom: -30px; left: 50%; transform: translateX(-50%); color: #E1306C; }
+        .telegram { top: 50%; left: -30px; transform: translateY(-50%); color: #0088cc; }
 
         @keyframes rotateOrbit {
             from { transform: rotate(0deg); }
@@ -78,7 +124,7 @@
         }
 
         .icon-link i {
-            animation: counterRotate 15s linear infinite;
+            animation: counterRotate 12s linear infinite;
         }
 
         @keyframes counterRotate {
@@ -86,19 +132,22 @@
             to { transform: rotate(-360deg); }
         }
 
-        /* نورەکا شین ل پشت ناڤی */
+        /* Glow Effects */
         .glow-effect {
             position: absolute;
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             background: #00d4ff;
-            filter: blur(80px);
+            filter: blur(100px);
             border-radius: 50%;
-            opacity: 0.4;
+            opacity: 0.3;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
+
+    <div class="welcome-msg">Welcome</div>
 
     <div class="glow-effect"></div>
 
@@ -106,15 +155,15 @@
         <div class="brand-name">TECH AI</div>
 
         <div class="orbit">
-            <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-95RtUPqa7Sj" target="_blank" class="icon-link tiktok">
+            <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-95RtUPqa7Sj" target="_blank" class="icon-link tiktok" title="TikTok">
                 <i class="fab fa-tiktok"></i>
             </a>
             
-            <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" target="_blank" class="icon-link instagram">
+            <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" target="_blank" class="icon-link instagram" title="Instagram">
                 <i class="fab fa-instagram"></i>
             </a>
             
-            <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram">
+            <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram" title="Telegram">
                 <i class="fab fa-telegram"></i>
             </a>
         </div>
