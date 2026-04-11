@@ -3,171 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI | Welcome</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Tech AI - Dynamic Page</title>
     <style>
         body {
             margin: 0;
             padding: 0;
+            background-color: #050f1a;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             height: 100vh;
-            background: radial-gradient(circle at center, #0a192f 0%, #020202 100%);
-            font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            color: white;
         }
 
-        /* ئەستێرەیێن پشت بنەمایێ */
-        body::before {
-            content: "";
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            box-shadow: 10vw 20vh 1px #fff, 50vw 40vh 1px #fff, 80vw 10vh 1px #fff, 20vw 80vh 1px #fff, 70vw 70vh 1px #fff;
-            border-radius: 50%;
-            animation: starsAnim 10s linear infinite;
-        }
-
-        @keyframes starsAnim {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100vh); }
-        }
-
-        /* Welcome Text */
-        .welcome-msg {
+        /* 1. Welcome Text Animation */
+        #welcome-text {
             font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: 5px;
-            text-transform: uppercase;
+            font-weight: bold;
+            color: #00f2ff;
+            text-shadow: 0 0 20px #00f2ff;
+            transition: transform 0.5s ease-in-out, opacity 0.5s;
             margin-bottom: 50px;
-            background: linear-gradient(to right, #00d4ff, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: pulseText 2s ease-in-out infinite;
-            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
         }
 
-        @keyframes pulseText {
-            0%, 100% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
-        }
-
+        /* 2. Main Circle and Orbit */
         .container {
             position: relative;
-            width: 350px;
-            height: 350px;
+            width: 300px;
+            height: 300px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            /* Tilt the orbit a bit */
+            transform: rotateX(45deg); 
+            perspective: 1000px;
         }
 
-        /* ناڤێ سەرەکی */
-        .brand-name {
-            color: #ffffff;
-            font-size: 2.2rem;
-            font-weight: 900;
-            text-shadow: 0 0 25px #00d4ff;
-            z-index: 10;
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            padding: 10px 20px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-        }
-
-        /* خەکا زڤڕۆک */
         .orbit {
             position: absolute;
             width: 100%;
             height: 100%;
-            border: 1px dashed rgba(0, 212, 255, 0.2);
+            border: 1px dashed rgba(0, 242, 255, 0.3);
             border-radius: 50%;
-            animation: rotateOrbit 12s linear infinite;
+            animation: rotateOrbit 10s linear infinite;
         }
 
-        .icon-link {
+        /* Icons on the orbit */
+        .icon {
             position: absolute;
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
+            width: 50px;
+            height: 50px;
+            background: #1a1a1a;
             border-radius: 50%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            text-decoration: none;
-            font-size: 1.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            justify-content: center;
+            border: 2px solid #333;
+            /* Reverse the tilt of the icons so they look upright */
+            transform: rotateX(-45deg);
         }
 
-        .icon-link:hover {
-            transform: scale(1.3) rotate(360deg);
-            background: #fff;
-            box-shadow: 0 0 30px #00d4ff;
-        }
-
-        /* جهێ ئایکۆنان */
-        .tiktok { top: -30px; left: 50%; transform: translateX(-50%); color: #ff0050; }
-        .instagram { bottom: -30px; left: 50%; transform: translateX(-50%); color: #E1306C; }
-        .telegram { top: 50%; left: -30px; transform: translateY(-50%); color: #0088cc; }
+        .icon.tiktok { top: -25px; left: 50%; transform: translateX(-50%) rotateX(-45deg); }
+        .icon.insta { bottom: -25px; left: 50%; transform: translateX(-50%) rotateX(-45deg); }
+        .icon.telegram { left: -25px; top: 50%; transform: translateY(-50%) rotateX(-45deg); }
 
         @keyframes rotateOrbit {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        .icon-link i {
-            animation: counterRotate 12s linear infinite;
-        }
-
-        @keyframes counterRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(-360deg); }
-        }
-
-        /* Glow Effects */
-        .glow-effect {
+        /* 3. Tech AI Box with Shake Effect */
+        .tech-ai-box {
             position: absolute;
-            width: 200px;
-            height: 200px;
-            background: #00d4ff;
-            filter: blur(100px);
-            border-radius: 50%;
-            opacity: 0.3;
-            z-index: -1;
+            padding: 15px 30px;
+            background: rgba(0, 242, 255, 0.1);
+            border: 2px solid #00f2ff;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #00f2ff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            /* Counter-tilt to make it flat to user */
+            transform: rotateX(-45deg);
+            animation: shake 0.2s infinite alternate;
         }
+
+        @keyframes shake {
+            0% { transform: rotateX(-45deg) translate(2px, 1px); }
+            100% { transform: rotateX(-45deg) translate(-2px, -1px); }
+        }
+
+        /* 4. Background Stars Animation */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: moveStars 5s infinite linear;
+        }
+
+        @keyframes moveStars {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100vh); }
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="welcome-msg">Welcome</div>
-
-    <div class="glow-effect"></div>
+    <div id="welcome-text">WELCOME</div>
 
     <div class="container">
-        <div class="brand-name">TECH AI</div>
-
         <div class="orbit">
-            <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-95RtUPqa7Sj" target="_blank" class="icon-link tiktok" title="TikTok">
-                <i class="fab fa-tiktok"></i>
-            </a>
-            
-            <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" target="_blank" class="icon-link instagram" title="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-            
-            <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram" title="Telegram">
-                <i class="fab fa-telegram"></i>
-            </a>
+            <div class="icon tiktok">🎵</div>
+            <div class="icon insta">📸</div>
+            <div class="icon telegram">✈️</div>
         </div>
+        
+        <div class="tech-ai-box">TECH AI</div>
     </div>
+
+    <script>
+        // Welcome Text Toggle (English / Kurdish)
+        const welcome = document.getElementById('welcome-text');
+        let isEnglish = true;
+
+        setInterval(() => {
+            welcome.style.opacity = '0';
+            setTimeout(() => {
+                welcome.innerText = isEnglish ? "خێرهاتن" : "WELCOME";
+                welcome.style.opacity = '1';
+                isEnglish = !isEnglish;
+            }, 500);
+        }, 2000);
+
+        // Background Stars Logic
+        for (let i = 0; i < 50; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            let size = Math.random() * 3 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(star);
+        }
+    </script>
 
 </body>
 </html>
