@@ -3,99 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI - World</title>
+    <title>Tech AI - Animated</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle at center, #112d4e 0%, #02060c 100%);
+            background: radial-gradient(circle at center, #144272 0%, #050a14 100%);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Arial', sans-serif;
+            font-family: sans-serif;
             overflow: hidden;
             color: white;
         }
 
-        /* لایێ سەرەوە: گوهۆڕینا زمان */
-        .welcome-section {
+        /* ل سەرێ شاشێ: گوهۆڕینا زمان */
+        .welcome-header {
             position: absolute;
-            top: 5%;
-            text-align: center;
+            top: 40px;
             width: 100%;
+            text-align: center;
         }
 
         #welcome-text {
-            font-size: 1.5rem;
+            font-size: 24px;
+            font-weight: bold;
             color: #00d2ff;
             text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
             transition: opacity 0.5s;
         }
 
-        /* دیزاینێ سەرەکی یێ وێنەی */
-        .main-container {
+        /* کانتینەرێ سەرەکی */
+        .scene {
             position: relative;
             width: 400px;
             height: 600px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         /* ناڤێ TECH AI درست وەک وێنەی */
-        .brand-logo {
+        .tech-ai-title {
             position: absolute;
             top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 3.5rem;
             font-weight: 900;
-            color: #1cb5e0;
-            opacity: 0.8;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            color: #00d2ff;
+            opacity: 0.7;
+            letter-spacing: 5px;
         }
 
-        /* موبایلا ل بن هاتیە دانان */
-        .phone-mock {
+        /* موبایلا بن لایێ چەپێ */
+        .phone-base {
             position: absolute;
             bottom: 10%;
-            width: 320px;
-            height: 180px;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            left: 5%;
+            width: 280px;
+            height: 140px;
+            background: #0d1b2a;
             border: 2px solid #1cb5e0;
-            border-radius: 20px;
-            transform: perspective(1000px) rotateX(55deg) rotateZ(-10deg);
-            box-shadow: 0 30px 60px rgba(0, 210, 255, 0.4);
+            border-radius: 25px;
+            transform: perspective(1000px) rotateX(50deg) rotateY(5deg) rotateZ(-20deg);
+            box-shadow: 0 0 50px rgba(0, 210, 255, 0.3);
         }
 
-        /* گۆیا زەڤیێ یا دزڤڕیت */
-        .earth-globe {
+        /* تەپا دنیا - ب تنێ ل دەورێ خۆ دزڤڕیت */
+        .world-sphere {
             position: absolute;
-            bottom: 30%;
-            left: 20%;
-            width: 120px;
-            height: 120px;
+            bottom: 32%;
+            left: 15%;
+            width: 130px;
+            height: 130px;
             background: url('https://upload.wikimedia.org/wikipedia/commons/2/22/Earth_Western_Hemisphere_transparent_background.png') no-repeat center;
             background-size: cover;
             border-radius: 50%;
-            box-shadow: inset -5px -5px 30px #000, 0 0 30px #00d2ff;
-            animation: spin 10s linear infinite;
-            z-index: 10;
+            box-shadow: inset -5px -5px 25px #000, 0 0 35px rgba(0, 210, 255, 0.7);
+            /* زڤڕین ل دەورێ خۆ */
+            animation: rotateSelf 12s linear infinite;
         }
 
-        @keyframes spin {
+        @keyframes rotateSelf {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        /* ئایکۆن ب شێوازێ وێنەی */
-        .icons-group {
+        /* ئایکۆنێن سۆشیاڵ میدیایێ */
+        .social-icons {
             position: absolute;
             width: 100%;
             height: 100%;
         }
 
-        .icon {
+        .icon-box {
             position: absolute;
             width: 65px;
             height: 65px;
@@ -103,79 +103,70 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            animation: float 4s ease-in-out infinite;
+            /* هەر ئایکۆنەک ل دەورێ خۆ دزڤڕیت */
+            animation: rotateSelf 8s linear infinite;
             transition: 0.3s;
-            cursor: pointer;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
+        /* جهێ ئایکۆنان درست وەک وێنەی */
+        .instagram { top: 40%; right: 15%; background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); }
+        .telegram { top: 58%; right: 35%; background: #0088cc; }
+        .tiktok { top: 68%; right: 10%; background: #000; border: 1px solid #444; }
+
+        .icon-box img {
+            width: 40px;
+            height: 40px;
+            /* ئەگەر تە دڤێت وێنێ ناڤ ئایکۆنی نەزڤڕیت، ئەڤ لایەنێ خوارێ چالاک بکە */
+            /* animation: rotateSelf 8s linear infinite reverse; */
         }
 
-        /* شوونا ئایکۆنان وەک وێنەی */
-        .instagram { top: 35%; right: 10%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .telegram { top: 55%; right: 30%; background: #0088cc; }
-        .tiktok { top: 65%; right: 5%; background: #000; }
-
-        .icon img { width: 40px; height: 40px; }
-        .icon:hover { transform: scale(1.1) rotate(10deg); box-shadow: 0 0 25px #00d2ff; }
-
-        /* وەک تیشکێن ڕۆناهیێ ل ژێر دنیا */
-        .light-beams {
-            position: absolute;
-            bottom: 22%;
-            left: 25%;
-            width: 80px;
-            height: 100px;
-            background: radial-gradient(ellipse, rgba(0, 210, 255, 0.4) 0%, transparent 70%);
-            transform: rotateX(70deg);
+        .icon-box:hover {
+            box-shadow: 0 0 25px #00d2ff;
+            transform: scale(1.1);
         }
 
     </style>
 </head>
 <body>
 
-    <div class="welcome-section">
+    <div class="welcome-header">
         <h1 id="welcome-text">خێرهاتن بۆ پەیجی</h1>
     </div>
 
-    <div class="main-container">
-        <div class="brand-logo">TECH AI</div>
+    <div class="scene">
+        <div class="tech-ai-title">TECH AI</div>
         
-        <div class="phone-mock"></div>
-        <div class="light-beams"></div>
+        <div class="phone-base"></div>
         
-        <div class="earth-globe"></div>
+        <div class="world-sphere"></div>
 
-        <div class="icons-group">
-            <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" target="_blank" class="icon instagram">
-                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram">
+        <div class="social-icons">
+            <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" target="_blank" class="icon-box instagram">
+                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png">
             </a>
-            <a href="https://t.me/tech_ai_falah" target="_blank" class="icon telegram">
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+            <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-box telegram">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
             </a>
-            <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-95TZdN7XgRN" target="_blank" class="icon tiktok">
-                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok">
+            <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-95TZdN7XgRN" target="_blank" class="icon-box tiktok">
+                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
             </a>
         </div>
     </div>
 
     <script>
-        const textElement = document.getElementById('welcome-text');
+        const welcomeText = document.getElementById('welcome-text');
         const languages = ["خێرهاتن بۆ پەیجی", "Welcome to page"];
-        let index = 0;
+        let i = 0;
 
         setInterval(() => {
-            textElement.style.opacity = 0;
+            welcomeText.style.opacity = 0;
             setTimeout(() => {
-                index = (index + 1) % languages.length;
-                textElement.innerText = languages[index];
-                textElement.style.opacity = 1;
+                i = (i + 1) % languages.length;
+                welcomeText.innerText = languages[i];
+                welcomeText.style.opacity = 1;
             }, 500);
         }, 3000);
     </script>
+
 </body>
 </html>
