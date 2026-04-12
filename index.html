@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Ai | Welcome</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #051937, #000c1d);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            margin-top: 40px;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin: 5px 0;
+            text-shadow: 0 0 20px #00a2ff;
+        }
+
+        /* Earth 3D Animation */
+        .earth-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .earth {
+            width: 200px;
+            height: 200px;
+            background: url('https://geology.com/world/world-map.gif'); /* Link alternative for globe */
+            background-size: cover;
+            border-radius: 50%;
+            box-shadow: inset -20px -20px 50px rgba(0,0,0,0.8), 
+                        0 0 30px rgba(0, 162, 255, 0.4);
+            animation: rotateEarth 20s linear infinite;
+            position: relative;
+        }
+
+        @keyframes rotateEarth {
+            from { background-position: 0 0; }
+            to { background-position: 400px 0; }
+        }
+
+        .earth-text {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1.6rem;
+            text-shadow: 2px 2px 10px rgba(0,0,0,1), 0 0 10px #00a2ff;
+            z-index: 5;
+        }
+
+        /* Social Buttons List */
+        .button-container {
+            width: 90%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .social-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            background: rgba(0, 162, 255, 0.2);
+            transform: translateY(-3px);
+            border-color: #00a2ff;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            margin-left: 20px; /* Space for RTL */
+        }
+
+        .btn-info {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            direction: ltr; /* Keeping English text left-to-right */
+        }
+
+        .btn-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .btn-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* Background Dots Animation */
+        .bg-dots {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>بخێرهاتی بۆ دنیای تەکنەلۆژیا</h1>
+        <h1>Welcome to Tech World</h1>
+    </div>
+
+    <div class="earth-wrapper">
+        <div class="earth"></div>
+        <div class="earth-text">Tech Ai</div>
+    </div>
+
+    <div class="button-container">
+        <a href="https://t.me/tech_ai_falah" target="_blank" class="social-btn">
+            <span class="icon">✈️</span>
+            <div class="btn-info">
+                <span class="btn-title">Telegram</span>
+                <span class="btn-subtitle">Join our channel</span>
+            </div>
+        </a>
+
+        <a href="https://www.instagram.com/__tech_.ai._/" target="_blank" class="social-btn">
+            <span class="icon">📸</span>
+            <div class="btn-info">
+                <span class="btn-title">Instagram</span>
+                <span class="btn-subtitle">Follow us</span>
+            </div>
+        </a>
+
+        <a href="https://www.tiktok.com/@_tech_ai_/" target="_blank" class="social-btn">
+            <span class="icon">🎵</span>
+            <div class="btn-info">
+                <span class="btn-title">TikTok</span>
+                <span class="btn-subtitle">Watch our videos</span>
+            </div>
+        </a>
+    </div>
+
+</body>
+</html>
