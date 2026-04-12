@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI | Space Journey</title>
+    <title>Tech AI | Space & Sky</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -33,13 +33,15 @@
             transition: background 1s ease;
         }
 
-        /* ئەنیمەیشنا ستێران */
+        /* ستێر (تنێ بۆ شەڤێ) */
         .stars-container {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: 0;
+            transition: opacity 1s;
         }
+        [data-theme="light"] .stars-container { opacity: 0; }
 
         .star {
             position: absolute;
@@ -49,11 +51,62 @@
             animation: twinkle var(--duration) infinite alternate;
         }
 
-        @keyframes twinkle {
-            from { opacity: 0.2; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1.2); }
+        /* عەور (تنێ بۆ ڕۆژێ) */
+        .clouds-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            z-index: 1;
+        }
+        [data-theme="light"] .clouds-container { display: block; }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            filter: blur(20px);
+            border-radius: 50%;
+            animation: moveClouds 20s linear infinite;
         }
 
+        @keyframes moveClouds {
+            from { transform: translateX(-10vw); }
+            to { transform: translateX(110vw); }
+        }
+
+        /* تاڤ (Sun) */
+        .sun {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #fff700, #ffaa00);
+            border-radius: 50%;
+            box-shadow: 0 0 80px #ffea00;
+            top: 10%;
+            left: 10%;
+            display: none;
+            z-index: 2;
+        }
+        [data-theme="light"] .sun { display: block; animation: sunGlow 3s ease-in-out infinite alternate; }
+
+        @keyframes sunGlow { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.1); opacity: 1; } }
+
+        /* هەسارە (بۆ شەڤێ) */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: inset -15px -15px 30px rgba(0,0,0,0.8);
+            z-index: 1;
+            transition: transform 1s, opacity 1s;
+        }
+        [data-theme="light"] .planet { opacity: 0; transform: translateY(100px); }
+
+        .saturn { width: 100px; height: 100px; background: radial-gradient(circle at 30% 30%, #f4d03f, #9a7d0a); top: 15%; left: 10%; }
+        .saturn::after { content: ""; position: absolute; top: 50%; left: 50%; width: 160%; height: 30%; border: 6px solid rgba(244, 208, 63, 0.4); border-radius: 50%; transform: translate(-50%, -50%) rotate(25deg); }
+
+        .jupiter { width: 130px; height: 130px; background: repeating-linear-gradient( #a9703e, #d39c7e 10%, #8b4513 20% ); bottom: 15%; left: 5%; }
+
+        /* دوگمەیا گوهۆڕینێ */
         .theme-switch {
             position: fixed;
             top: 20px;
@@ -61,53 +114,14 @@
             z-index: 100;
             cursor: pointer;
             font-size: 1.5rem;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.2);
             padding: 10px 15px;
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(5px);
             color: white;
-            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px);
         }
 
-        /* هەسارێن راستی (Realistic) */
-        .planet {
-            position: absolute;
-            border-radius: 50%;
-            box-shadow: inset -15px -15px 30px rgba(0,0,0,0.8);
-            z-index: 1;
-        }
-
-        .saturn { 
-            width: 100px; height: 100px; 
-            background: radial-gradient(circle at 30% 30%, #f4d03f, #9a7d0a); 
-            top: 15%; left: 10%;
-            box-shadow: inset -10px -10px 40px #000, 0 0 10px #f4d03f33;
-        }
-        /* بازنێ زوحەل */
-        .saturn::after {
-            content: "";
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 160%; height: 30%;
-            border: 8px solid rgba(244, 208, 63, 0.4);
-            border-radius: 50%;
-            transform: translate(-50%, -50%) rotate(25deg);
-        }
-
-        .jupiter { 
-            width: 130px; height: 130px; 
-            background: repeating-linear-gradient( #a9703e, #d39c7e 10%, #8b4513 20% );
-            top: 60%; left: 5%; 
-        }
-
-        .uranus { 
-            width: 60px; height: 60px; 
-            background: radial-gradient(circle at 30% 30%, #afeeee, #4682b4); 
-            top: 10%; right: 15%; 
-        }
-
-        /* Welcome Text */
         .welcome-msg {
             font-size: 3rem;
             font-weight: 800;
@@ -116,55 +130,13 @@
             color: var(--text-color);
             text-shadow: var(--sun-moon-shadow);
             z-index: 10;
-            height: 60px; /* جێگیرکرنا جهی بۆ هندێ لڤین نەکەفتێ */
         }
 
-        .container {
-            position: relative;
-            width: 350px;
-            height: 350px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-        }
+        .container { position: relative; width: 350px; height: 350px; display: flex; justify-content: center; align-items: center; z-index: 10; }
+        .brand-name { color: #ffffff; font-size: 2.2rem; font-weight: 900; text-shadow: 0 0 25px #00d4ff; padding: 10px 20px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 15px; }
 
-        .brand-name {
-            color: #ffffff;
-            font-size: 2.2rem;
-            font-weight: 900;
-            text-shadow: 0 0 25px #00d4ff;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            border-radius: 15px;
-        }
-
-        .orbit {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 1px dashed rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            animation: rotateOrbit 15s linear infinite;
-        }
-
-        .icon-link {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            font-size: 1.8rem;
-            transition: 0.4s;
-        }
-
+        .orbit { position: absolute; width: 100%; height: 100%; border: 1px dashed rgba(255, 255, 255, 0.3); border-radius: 50%; animation: rotateOrbit 15s linear infinite; }
+        .icon-link { position: absolute; width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 1.8rem; transition: 0.4s; }
         .icon-link:hover { transform: scale(1.2); background: #fff; }
 
         .tiktok { top: -30px; left: 50%; transform: translateX(-50%); color: #ff0050; }
@@ -172,12 +144,14 @@
         .telegram { top: 50%; left: -30px; transform: translateY(-50%); color: #0088cc; }
 
         @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
+        @keyframes twinkle { from { opacity: 0.2; } to { opacity: 1; } }
     </style>
 </head>
 <body data-theme="dark">
 
     <div class="stars-container" id="stars"></div>
+    <div class="clouds-container" id="clouds"></div>
+    <div class="sun"></div>
 
     <div class="theme-switch" onclick="toggleTheme()">
         <i id="theme-icon" class="fas fa-moon"></i>
@@ -185,13 +159,11 @@
 
     <div class="planet saturn"></div>
     <div class="planet jupiter"></div>
-    <div class="planet uranus"></div>
 
     <div class="welcome-msg" id="welcome-text">welcome</div>
 
     <div class="container">
         <div class="brand-name">Tech Ai</div>
-
         <div class="orbit">
             <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-95RtUPqa7Sj" target="_blank" class="icon-link tiktok"><i class="fab fa-tiktok"></i></a>
             <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" target="_blank" class="icon-link instagram"><i class="fab fa-instagram"></i></a>
@@ -200,35 +172,44 @@
     </div>
 
     <script>
-        // دروستکرنا ستێران ب شێوەیەکێ هەرەمەکی
+        // دروستکرنا ستێران
         const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < 100; i++) {
             const star = document.createElement('div');
             star.className = 'star';
-            const size = Math.random() * 3 + 'px';
-            star.style.width = size;
-            star.style.height = size;
+            const size = Math.random() * 2 + 'px';
+            star.style.width = size; star.style.height = size;
             star.style.top = Math.random() * 100 + 'vh';
             star.style.left = Math.random() * 100 + 'vw';
             star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
             starsContainer.appendChild(star);
         }
 
-        // گوهۆڕینا دەقێ Welcome هەر ١ چرکە
+        // دروستکرنا عەوران
+        const cloudsContainer = document.getElementById('clouds');
+        for (let i = 0; i < 6; i++) {
+            const cloud = document.createElement('div');
+            cloud.className = 'cloud';
+            cloud.style.width = Math.random() * 200 + 150 + 'px';
+            cloud.style.height = Math.random() * 100 + 50 + 'px';
+            cloud.style.top = Math.random() * 60 + 'vh';
+            cloud.style.left = Math.random() * 100 + 'vw';
+            cloud.style.animationDelay = Math.random() * 10 + 's';
+            cloudsContainer.appendChild(cloud);
+        }
+
+        // گوهۆڕینا دەقی
         const welcomeText = document.getElementById('welcome-text');
         const messages = ["welcome", "بخێر بێی"];
         let index = 0;
-
         setInterval(() => {
             index = (index + 1) % messages.length;
             welcomeText.innerText = messages[index];
         }, 1000);
 
-        // گوهۆڕینا مۆدێ رووناهی و تاری
         function toggleTheme() {
             const body = document.body;
             const icon = document.getElementById('theme-icon');
-            
             if (body.getAttribute('data-theme') === 'dark') {
                 body.setAttribute('data-theme', 'light');
                 icon.className = 'fas fa-sun';
