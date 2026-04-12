@@ -3,124 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech AI Official</title>
+    <title>Tech AI | Space Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body, html {
+        :root {
+            --bg-color: radial-gradient(circle at center, #050b1a 0%, #000 100%);
+            --text-color: #00d4ff;
+            --sun-moon-shadow: 0 0 50px #00d4ff;
+        }
+
+        [data-theme="light"] {
+            --bg-color: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+            --text-color: #ffffff;
+            --sun-moon-shadow: 0 0 60px #ffea00;
+        }
+
+        body {
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: var(--bg-color);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            transition: background 1s ease;
+        }
+
+        /* ئەنیمەیشنا ستێران */
+        .stars-container {
+            position: absolute;
+            width: 100%;
             height: 100%;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.2; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1.2); }
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            cursor: pointer;
+            font-size: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 15px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            color: white;
+            transition: 0.3s;
+        }
+
+        /* هەسارێن راستی (Realistic) */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: inset -15px -15px 30px rgba(0,0,0,0.8);
+            z-index: 1;
+        }
+
+        .saturn { 
+            width: 100px; height: 100px; 
+            background: radial-gradient(circle at 30% 30%, #f4d03f, #9a7d0a); 
+            top: 15%; left: 10%;
+            box-shadow: inset -10px -10px 40px #000, 0 0 10px #f4d03f33;
+        }
+        /* بازنێ زوحەل */
+        .saturn::after {
+            content: "";
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 160%; height: 30%;
+            border: 8px solid rgba(244, 208, 63, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) rotate(25deg);
+        }
+
+        .jupiter { 
+            width: 130px; height: 130px; 
+            background: repeating-linear-gradient( #a9703e, #d39c7e 10%, #8b4513 20% );
+            top: 60%; left: 5%; 
+        }
+
+        .uranus { 
+            width: 60px; height: 60px; 
+            background: radial-gradient(circle at 30% 30%, #afeeee, #4682b4); 
+            top: 10%; right: 15%; 
+        }
+
+        /* Welcome Text */
+        .welcome-msg {
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            color: var(--text-color);
+            text-shadow: var(--sun-moon-shadow);
+            z-index: 10;
+            height: 60px; /* جێگیرکرنا جهی بۆ هندێ لڤین نەکەفتێ */
+        }
+
+        .container {
+            position: relative;
+            width: 350px;
+            height: 350px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #050a14;
-            font-family: sans-serif;
-            overflow: hidden;
+            z-index: 10;
         }
 
-        /* لێرە وێنەیێ تە یێ ئەصلی دبیتە پاشبنەما */
-        .main-wrapper {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            max-width: 500px; /* گونجاندن بۆ موبایلێ */
-            max-height: 900px;
-            background: url('https://رابط_صورة_خلفيتك_هنا.png') no-repeat center center;
-            background-size: cover;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .brand-name {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-shadow: 0 0 25px #00d4ff;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
         }
 
-        /* نڤیسینا خێرهاتنێ ل سەرێ شاشێ */
-        #welcome-text {
-            margin-top: 40px;
-            font-size: 22px;
-            font-weight: bold;
-            color: #00e5ff;
-            text-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
-            transition: opacity 0.5s ease;
-        }
-
-        /* تەپا دنیا - درست ل سەر وێنەی دزڤڕیت */
-        .earth-overlay {
+        .orbit {
             position: absolute;
-            top: 46%; /* ئەڤ جهانە دشێی کێم و زێدە کەی دا درست بکەڤنە سەر وێنەی */
-            left: 23%;
-            width: 110px;
-            height: 110px;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/2/22/Earth_Western_Hemisphere_transparent_background.png') no-repeat center;
-            background-size: contain;
+            width: 100%;
+            height: 100%;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            box-shadow: inset -5px -5px 20px #000, 0 0 20px rgba(0, 229, 255, 0.5);
-            animation: spin 10s linear infinite;
+            animation: rotateOrbit 15s linear infinite;
         }
 
-        /* ئایکۆنێن کو دزڤڕن ل سەر جهێ خۆ */
         .icon-link {
             position: absolute;
             width: 60px;
             height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 15px;
-            animation: rotateSelf 6s linear infinite;
-            overflow: hidden;
+            text-decoration: none;
+            font-size: 1.8rem;
+            transition: 0.4s;
         }
 
-        /* دیارکرنا جهێ ئایکۆنان درست وەک وێنەی */
-        .instagram { top: 38%; right: 15%; }
-        .telegram { top: 52%; right: 34%; }
-        .tiktok { top: 62%; right: 12%; }
+        .icon-link:hover { transform: scale(1.2); background: #fff; }
 
-        .icon-link img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .tiktok { top: -30px; left: 50%; transform: translateX(-50%); color: #ff0050; }
+        .instagram { bottom: -30px; left: 50%; transform: translateX(-50%); color: #E1306C; }
+        .telegram { top: 50%; left: -30px; transform: translateY(-50%); color: #0088cc; }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        @keyframes rotateOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        @keyframes rotateSelf {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
     </style>
 </head>
-<body>
+<body data-theme="dark">
 
-    <div class="main-wrapper">
-        <div id="welcome-text">خێرهاتن بۆ پەیجی</div>
+    <div class="stars-container" id="stars"></div>
 
-        <div class="earth-overlay"></div>
+    <div class="theme-switch" onclick="toggleTheme()">
+        <i id="theme-icon" class="fas fa-moon"></i>
+    </div>
 
-        <a href="https://www.instagram.com/__tech_.ai._?..." target="_blank" class="icon-link instagram">
-            <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png">
-        </a>
-        <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram">
-            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
-        </a>
-        <a href="https://www.tiktok.com/@_tech_ai_?..." target="_blank" class="icon-link tiktok">
-            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
-        </a>
+    <div class="planet saturn"></div>
+    <div class="planet jupiter"></div>
+    <div class="planet uranus"></div>
+
+    <div class="welcome-msg" id="welcome-text">welcome</div>
+
+    <div class="container">
+        <div class="brand-name">Tech Ai</div>
+
+        <div class="orbit">
+            <a href="https://www.tiktok.com/@_tech_ai_?_r=1&_t=ZS-95RtUPqa7Sj" target="_blank" class="icon-link tiktok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/__tech_.ai._?igsh=MTZ2ZGIxcXB2YjVjaw%3D%3D&utm_source=qr" target="_blank" class="icon-link instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://t.me/tech_ai_falah" target="_blank" class="icon-link telegram"><i class="fab fa-telegram"></i></a>
+        </div>
     </div>
 
     <script>
-        const text = document.getElementById('welcome-text');
-        const msgs = ["خێرهاتن بۆ پەیجی", "Welcome to page"];
-        let i = 0;
-        setInterval(() => {
-            text.style.opacity = 0;
-            setTimeout(() => {
-                i = (i + 1) % msgs.length;
-                text.innerText = msgs[i];
-                text.style.opacity = 1;
-            }, 500);
-        }, 3000);
-    </script>
+        // دروستکرنا ستێران ب شێوەیەکێ هەرەمەکی
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+            starsContainer.appendChild(star);
+        }
 
+        // گوهۆڕینا دەقێ Welcome هەر ١ چرکە
+        const welcomeText = document.getElementById('welcome-text');
+        const messages = ["welcome", "بخێر بێی"];
+        let index = 0;
+
+        setInterval(() => {
+            index = (index + 1) % messages.length;
+            welcomeText.innerText = messages[index];
+        }, 1000);
+
+        // گوهۆڕینا مۆدێ رووناهی و تاری
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                icon.className = 'fas fa-sun';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-moon';
+            }
+        }
+    </script>
 </body>
 </html>
