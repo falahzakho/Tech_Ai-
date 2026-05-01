@@ -33,7 +33,40 @@
             transition: background 1s ease;
         }
 
-        /* ستێر (تنێ بۆ شەڤێ) */
+        /* --- کودی زێدەکری بۆ دوگمەیا Telegram --- */
+        .bottom-left-msg {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: 0.3s ease;
+        }
+
+        .bottom-left-msg:hover {
+            background: rgba(0, 212, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .bottom-left-msg i {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .bottom-left-msg span {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        /* -------------------------------------- */
+
         .stars-container {
             position: absolute;
             width: 100%;
@@ -51,7 +84,6 @@
             animation: twinkle var(--duration) infinite alternate;
         }
 
-        /* عەور (تنێ بۆ ڕۆژێ) */
         .clouds-container {
             position: absolute;
             width: 100%;
@@ -74,7 +106,6 @@
             to { transform: translateX(110vw); }
         }
 
-        /* تاڤ (Sun) */
         .sun {
             position: absolute;
             width: 120px;
@@ -91,7 +122,6 @@
 
         @keyframes sunGlow { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.1); opacity: 1; } }
 
-        /* هەسارە (بۆ شەڤێ) */
         .planet {
             position: absolute;
             border-radius: 50%;
@@ -106,7 +136,6 @@
 
         .jupiter { width: 130px; height: 130px; background: repeating-linear-gradient( #a9703e, #d39c7e 10%, #8b4513 20% ); bottom: 15%; left: 5%; }
 
-        /* دوگمەیا گوهۆڕینێ */
         .theme-switch {
             position: fixed;
             top: 20px;
@@ -157,6 +186,12 @@
         <i id="theme-icon" class="fas fa-moon"></i>
     </div>
 
+    <!-- ئەڤە ئەو دوگمەیە یا تە داخوازکری -->
+    <a href="https://t.me/falahzakho" target="_blank" class="bottom-left-msg">
+        <i class="fas fa-envelope"></i>
+        <span>Message</span>
+    </a>
+
     <div class="planet saturn"></div>
     <div class="planet jupiter"></div>
 
@@ -172,7 +207,6 @@
     </div>
 
     <script>
-        // دروستکرنا ستێران
         const starsContainer = document.getElementById('stars');
         for (let i = 0; i < 100; i++) {
             const star = document.createElement('div');
@@ -185,7 +219,6 @@
             starsContainer.appendChild(star);
         }
 
-        // دروستکرنا عەوران
         const cloudsContainer = document.getElementById('clouds');
         for (let i = 0; i < 6; i++) {
             const cloud = document.createElement('div');
@@ -198,7 +231,6 @@
             cloudsContainer.appendChild(cloud);
         }
 
-        // گوهۆڕینا دەقی
         const welcomeText = document.getElementById('welcome-text');
         const messages = ["welcome", "بخێر بێی"];
         let index = 0;
